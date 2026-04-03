@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              </ul>
+
+              <div class="col-md-3 text-end">
+              </div>
+              
+            </div>
+            </header>
+            <main class="container bg-black p-3 rounded" >
+
+            <div class="container mt-4">
+                <h2 class="text-white">Generate Questions using AI</h2>
+                
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="topic" class="form-label text-white">Topic</label>
+                        <input type="text" class="form-control" id="topic" name="topic" required>
+                        <div class="form-text text-white ">Enter the topic you want questions about</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="difficulty" class="form-label text-white">Difficulty Level</label>
+                        <select class="form-control" id="difficulty" name="difficulty" required>
+                            <option value="easy">Easy</option>
+                            <option value="middle">Middle</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="num_questions" class="form-label text-white">Number of Questions</label>
+                        <input type="number" class="form-control" id="num_questions" name="num_questions" 
+                               min="1" max="5" value="1" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary ">Preview Questions</button>
+                </form>
+
+
+                {% if generated_questions %}
+                <div class="mt-4">
+                    <h3 class="text-white">Generated Questions Preview</h3>
+                    {% for question in generated_questions %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Question {{ forloop.counter }}</h5>
+                            <form action="{% url 'question_create' %}" method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label">Assignment:</label>
+                                    <select name="assignment" class="form-control" required>
+                                        {% for assignment in assignments %}
+                                            {% if not assignment.published %}
+                                                <option value="{{ assignment.aid }}">{{ assignment }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Question:</label>
+                                    <input type="text" name="question" class="form-control" value="{{ question.question }}" required>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Option 1:</label>
+                                    <input type="text" name="option1" class="form-control" value="{{ question.option1 }}" required>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Option 2:</label>
+                                    <input type="text" name="option2" class="form-control" value="{{ question.option2 }}" required>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Option 3:</label>
+                                    <input type="text" name="option3" class="form-control" value="{{ question.option3 }}" required>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Option 4:</label>
+                                    <input type="text" name="option4" class="form-control" value="{{ question.option4 }}" required>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Answer:</label>
+                                    <select name="answer" class="form-control" required>
+                                        <option value="Option1" {% if question.answer == "Option1" %}selected{% endif %}>Option 1</option>
+                                        <option value="Option2" {% if question.answer == "Option2" %}selected{% endif %}>Option 2</option>
+                                        <option value="Option3" {% if question.answer == "Option3" %}selected{% endif %}>Option 3</option>
+                                        <option value="Option4" {% if question.answer == "Option4" %}selected{% endif %}>Option 4</option>
+                                    </select>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Level:</label>
+                                    <select name="level" class="form-control" required>
+                                        <option value="easy" {% if question.level == "easy" %}selected{% endif %} >Easy</option>
+                                        <option value="middle"{% if question.level == "middle" %}selected{% endif %} >Middle</option>
+                                        <option value="hard" {% if question.level == "hard" %}selected{% endif %}>Hard</option>
+                                    </select>
+                                </div>
+                
+                                <div class="mb-3">
+                                    <label class="form-label">Score:</label>
+                                    <input type="number" name="score" class="form-control" value="{{ question.score }}" required>
+                                </div>
+                
+                                <button type="submit" class="btn btn-success">Save Question</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+            </div>
+        </main>

@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              </ul>
+
+              <div class="col-md-3 text-end">
+              </div>
+              
+            </div>
+            </header>
+
+            <main class="container bg-black p-3 rounded" >
+                <div style="max-width: 336px ;" class="m-auto">
+                    <div class="mb-3">
+                    <h1 class="text-light">Edit assignment</h1><br>
+                    <form action="{% url 'assignment_update' aid=aid %}" method="post">
+                        {% csrf_token %}
+                        <label class="text-white" for="assignment_name">Assignment Name:</label>
+                        {{ form.assignment_name }}
+                        <br><br>
+                        <label class="text-white" for="level">mechanism:</label>
+                        {{form.mechanism_type}}
+                        <br><br>
+                        <input class="btn btn-primary" type="submit" value="Update">
+                    </form>
+                    </div>
+            </main>

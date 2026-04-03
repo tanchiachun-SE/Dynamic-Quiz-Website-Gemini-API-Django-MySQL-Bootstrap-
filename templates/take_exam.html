@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System (Student)</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              </ul>
+
+              <div class="col-md-3 text-end">
+              </div>
+              
+            </div>
+            </header>
+            <div class="container my-4">
+                <div class="jumbotron">
+            
+                    <div class="row">
+            
+                        <div class="card border-info mx-4 my-4">
+                            <div class="card-body text-default">
+            
+                                <h4 class="card-title">Exam Details :</h4>
+                                <p class="card-text">
+                                    </p><ul style="list-style:decimal;">
+                                        <p>Assignments: {{ Assignments.assignment_name }} (ID: {{ Assignments.aid }})</p>
+                                        <p>Total Questions: {{ total_questions }}</p>
+                                        <p>Total Marks: {{ total_marks }}</p>
+                                <p></p>
+            
+            
+            
+                                <h4 class="card-title">Rules :</h4>
+                                <p class="card-text">
+                                    </p><ul style="list-style:decimal;">
+                                        <li>All questions are MCQ (multiple choice question) or Yes/No type.</li>
+                                        <li><span class="text-danger">Only one choice is correct among the given.</span></li>
+                                        <li>Every question carry different marks.</li>
+                                        <li>Try to answer ASAP.</li>
+                                        <li>If you reload the page, nothing will change.</li>
+                                        <li>If you go back to the previous page and change answer, there will be don't save.</li>
+                                        <li>Questions are presented mechanism choose by lecturer.</li>
+                                    </ul>
+                                    <a href="{% url 'start_exam' Assignments.aid %}" class="btn btn-success" style="border-radius:0px;">Enter Examination</a>
+                                <p></p>
+
+                            </div>  
+                            <div class="card-footer">Best Of Luck, Students!</div>  
+                        </div>  
+                    </div>  

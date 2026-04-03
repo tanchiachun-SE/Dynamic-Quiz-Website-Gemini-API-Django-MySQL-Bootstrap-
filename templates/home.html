@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Dynamic quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              </ul>
+        
+              <div class="col-md-3 text-end">
+                <a href="{% url 'login' %}" class="btn btn-outline-warning me-2">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-warning">Sign-up</a>
+              </div>
+            </div>
+            </header>
+            
+            <main class="container bg-black p-3 rounded" >
+                <h1 class="text-light  text-center">Welcome to Dynamic Quiz System</h1>
+                <p class="lead mb-4 col-lg-10 mx-auto text-white">A Dynamic Quiz System is an advanced assessment tool designed to manage and adapt the delivery of questions to students based on their performance. Unlike traditional fixed or random quiz systems, the dynamic mechanism ensures that the difficulty level of questions aligns with the student's understanding. For instance, if a student answers correctly, the system progresses to more challenging questions, while incorrect answers lead to easier ones, providing a personalized and engaging learning experience.</p>
+                <p class="lead mb-4 col-lg-10 mx-auto text-white">The integration of Gemini AI enhances the system's capabilities by assisting lecturers in creating diverse, high-quality questions tailored to different difficulty levels and topics. Gemini AI analyzes course content and generates questions that align with learning objectives, saving educators time and effort while maintaining the quality of assessments.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{% url 'login' %}" class="btn btn-outline-warning me-2 px-5">LoGin</a>
+                <a href="{% url 'register' %}" class="btn btn-warning px-5">GET_STaRT</a>
+                </div>
+              </main>
+              <br>
+              <div class="container p-3">
+                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                  <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-header py-3 text-bg-warning border-warning">
+                        <h4 class="my-0 fw-normal">random mechanism</h4>
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                          <li>-Randomly selects questions from a Question bank</li>
+                          <li>-Give to student a random set of questions</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-header py-3 text-bg-warning border-warning">
+                        <h4 class="my-0 fw-normal">Fixed mechanism</h4>
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                          <li>-questions are chosen and given in a predetermined order</li>
+                          <li>-ranging from simple to hard</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm ">
+                      <div class="card-header py-3 text-bg-warning border-warning">
+                        <h4 class="my-0 fw-normal">Dynamic mechanism</h4>
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                          <li>-real-time based on the student's responses</li>
+                          <li>-tailoring the difficulty level to their performance</li>
+                          <li>-Lecturers are required to develop five simple, five moderate, and five challenging questions</li>
+                       </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </body>
+    </html>

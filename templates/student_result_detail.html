@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                <spam class="fs-4 text-white">Dynamic Quiz System (Lecturer)</spam>
+            </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'assignment_list' %}" class="nav-link link-light px-1 text-warning me-2" >Assignment bank</a></li>
+                <li><a href="{% url 'question_list' %}" class="nav-link link-light px-1 text-warning me-2">Question bank</a></li>
+                <li><a href="{% url 'student_results' %}" class="nav-link link-light px-1 text-warning me-2" >Results</a></li>
+            </ul>
+
+              <div class="col-md-3 text-end">
+                <a href="{% url 'logout' %}" class="btn btn-outline-warning me-2">logout</a>
+              </div>
+              
+            </div>
+            </header>
+                <main class="container bg-black p-3 rounded" >
+                    <div class="card text-center">
+                      <div class="card-header">
+                        <h1>Detailed Results for {{ result.account.username }}</h1>
+                        <h2>Assignment: {{ result.assignment.title }}</h2>
+                        <p>Total Score: {{ result.total_marks }}</p>
+                        <p>Correct Answers: {{ correct_answers }} / {{ total_questions }}</p>
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-bordered border-dark">
+                            <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Student's Answer</th>
+                                    <th>Correct Answer</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for answer in detailed_answers %}
+                                <tr>
+                                    <td>{{ answer.question_text }}</td>
+                                    <td>{{ answer.student_answer|default:"No answer"}}</td>
+                                    <td>{{ answer.correct_answer }}</td>
+                                    <td>{{ answer.score }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <a href="{% url 'download_student_result' result.id %}" class="btn btn-success">Download Detailed Results as XLSM</a>
+                        </div>
+                      </div>
+                      
+                      </div>

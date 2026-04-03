@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                  <spam class="fs-4 text-white">Dynamic Quiz System</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              </ul>
+        
+              <div class="col-md-3 text-end">
+                <a href="{% url 'login' %}" class="btn btn-outline-warning me-2">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-warning">Sign-up</a>
+              </div>
+            </div>
+            </header>
+            
+            <main class="container bg-black p-3 rounded" >
+                <div style="max-width: 330px;" class="m-auto">
+                  <h1 class="text-light">Register</h1>
+                  <form method="post">
+                  {% csrf_token %}
+                  <label class="text-light" for="username">Username:</label>
+                  <input type="text" id="username" name="username"><br><br>
+                  <label class="text-light" for="email">Email:</label>
+                  <input type="email" id="email" name="email"><br><br>
+                  <label class="text-light" for="password">Password:</label>
+                  <input type="password" id="password" name="password"><br><br>
+                  <label class="text-light" for="password-again">Confirm Password:</label>
+                  <input type="password" id="password-again" name="password-again"><br><br>
+                  <label class="text-light" for="cus_typ">User Type:</label>
+                  <select id="cus_typ" name="cus_typ">
+                  <option value="0">Student</option>
+                  <option value="1">Lecturer</option>
+                  </select><br><br>
+                  <input class="btn btn-primary" type="submit" value="Register">
+                  </form>
+                  {% if error %}
+                  <p style="color: red">{{ error }}</p>
+                  {% endif %}
+                </div>
+              </main>
+    </body>
+    </html>

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Quiz System</title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2">
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <div class="col-md-3 mb-2 mb-md-0">
+                    <span class="fs-4 text-white">Dynamic Quiz System (Student)</span>
+                </div>
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                </ul>
+                <div class="col-md-3 text-end">
+                </div>
+            </header>
+        </div>
+    </header>
+
+    <div class="container bg-black p-3 rounded">
+        <div class="card border-info">
+            <form method="post" class="form">
+                {% csrf_token %}
+                <h2 style="text-align: center;">Assignment: {{assignment.assignment_name}}</h2>
+                {% if question %}
+                    <div class="question">
+                        <h2>Question {{ request.session.question_count|default:0|add:1 }}</h2>
+                        <h3 class="text-primary">{{question.question}}</h3>
+                        <h4 style="text-align: right;">[{{question.score}} Marks]</h4>
+                        
+                        <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="answer" id="option1" value="Option1">
+                            <label class="form-check-label" for="option1">
+                                {{question.option1}}
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="answer" id="option2" value="Option2">
+                            <label class="form-check-label" for="option2">
+                                {{question.option2}}
+                            </label>
+                        </div>
+                        
+                        {% if question.option3 %}
+                        <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="answer" id="option3" value="Option3">
+                            <label class="form-check-label" for="option3">
+                                {{question.option3}}
+                            </label>
+                        </div>
+                        {% endif %}
+
+                        {% if question.option4 %}
+                        <div class="form-check mx-4">
+                            <input class="form-check-input" type="radio" name="answer" id="option4" value="Option4">
+                            <label class="form-check-label" for="option4">
+                                {{question.option4}}
+                            </label>
+                        </div>
+                        {% endif %}
+                        
+                        <br>
+                        <p>Difficulty: {{ question.get_level_display }}</p>
+                        <p>Score: {{ question.score }}</p>
+                        <p id="timer" class="text-danger" style="font-size: 1.5em;">Time Left: <span id="timeLeft">{{ time_allowed }}</span> seconds</p>
+                    </div>
+
+                    <div class="pagination">
+                        {% if request.session.question_count|default:0 < 4 %}
+                            <button type="submit" class="btn btn-primary">Next</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-success">Finish Exam</button>
+                        {% endif %}                    </div>
+                {% else %}
+                    <p>No questions available for this assignment.</p>
+                {% endif %}
+                
+                <script>
+                    let timeLeft;
+                    let timerId;
+                
+                    function startTimer(duration) {
+                        timeLeft = duration;
+                        updateTimer();
+                        timerId = setInterval(updateTimer, 1000);
+                    }
+                
+                    function updateTimer() {
+                        const timerElement = document.getElementById('timeLeft');
+                        timerElement.textContent = timeLeft;
+                
+                        if (timeLeft <= 0) {
+                            clearInterval(timerId);
+                            document.querySelector('form').submit();
+                        } else {
+                            timeLeft--;
+                        }
+                    }
+                
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const timeAllowed = JSON.parse('{{ time_allowed|escapejs }}');
+                        startTimer(timeAllowed);
+                    });
+                </script>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

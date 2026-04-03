@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System (Student)</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'student_dashboard' %}" class="nav-link link-light px-1 text-warning me-2" >dashboard</a></li>
+                <li><a href="{% url 'student_exam' %}" class="nav-link link-light px-1 text-warning me-2" >Exam</a></li>
+              </ul>
+
+              <div class="col-md-3 text-end">
+                <a href="{% url 'logout' %}" class="btn btn-outline-warning me-2">logout</a>
+              </div>
+              
+            </div>
+            </header>
+
+            <div class="container">
+                <div class="row">
+                  
+              
+                  <div class="col-md-4 col-xl-6">
+                    <div class="card bg-warning">
+                      <div class="card-block">
+                        <h6 class="text-center">Available Exams</h6>
+                       <h2 class="text-center">{{ Assignment }}</h2>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="col-md-4 col-xl-6">
+                    <div class="card bg-primary">
+                      <div class="card-block">
+                        <h6 class="text-center">Total Questions</h6>
+                        <h2 class="text-center">{{ Questionbank }}</h2>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>

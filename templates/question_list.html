@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System 
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System (Lecturer)</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'assignment_list' %}" class="nav-link link-light px-1 text-warning me-2" >Assignment bank</a></li>
+                <li><a href="{% url 'question_list' %}" class="nav-link link-light px-1 text-warning me-2">Question bank</a></li>
+                <li><a href="{% url 'student_results' %}" class="nav-link link-light px-1 text-warning me-2" >Results</a></li>
+            </ul>
+        
+              <div class="col-md-3 text-end">
+                <a href="{% url 'logout' %}" class="btn btn-outline-warning me-2">logout</a>
+              </div>
+            </div>
+            </header>
+            <main class="container bg-black p-3 rounded" >
+                <div class="card text-center">
+                    <div class="card-header">
+                        Question list
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered border-dark">
+                            <thead>
+                                <tr>
+                                    <th>assignment</th>
+                                    <th>id</th>
+                                    <th>Question</th>
+                                    <th>Option A</th>
+                                    <th>Option B</th>
+                                    <th>Option C</th>
+                                    <th>Option D</th>
+                                    <th>Correct Answer</th>
+                                    <th>level</th>
+                                    <th>score</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for question in questions %}
+                                <tr>
+                                    <td>{{ question.assignment }}</td>
+                                    <td>{{ question.qid }}</td>
+                                    <td>{{ question.question }}</td>
+                                    <td>{{ question.option1 }}</td>
+                                    <td>{{ question.option2 }}</td>
+                                    <td>{{ question.option3 }}</td>
+                                    <td>{{ question.option4 }}</td>
+                                    <td>{{ question.answer }}</td>
+                                    <td>{{ question.level }}</td>
+                                    <td>{{ question.score }}</td>
+                                    <td class="table-active">
+                                        {% if not question.is_published %}
+                                        <a href="{% url 'question_update' question.qid %}" class="btn btn-primary">Edit</a>
+                                        <a href="{% url 'question_delete' question.qid %}" class="btn btn-danger">Delete</a>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="card-footer text-body-secondary">
+                            <a class="btn btn-primary" type="submit" href="{% url 'question_create' %}">Add New Question</a>
+                            <a class="btn btn-primary" type="submit" href="{% url 'yes_no_create' %}">Add New Yes/No Question</a>
+                            <a class="btn btn-primary" type="submit" href="{% url 'Ai_question_create' %}">use ai create multiple Question</a>
+                            <a class="btn btn-primary" type="submit" href="{% url 'ai_yes_no_create' %}">use ai create yes or no Question</a>
+
+                        </div>
+                    </div>
+                </div>
+            </main>

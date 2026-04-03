@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+              </ul>
+
+              <div class="col-md-3 text-end">
+              </div>
+              
+            </div>
+            </header>
+
+            <main class="container bg-black p-3 rounded" >
+                <div class="m-auto">
+                    <div class="mb-3">
+                    <h1 class="text-light text-center">Edit question</h1><br>
+                    <form action="{% url 'question_update' qid=qid  %}" method="post">
+                        {% csrf_token %}
+                        <label class="text-white" for="assignment">assignment:</label>
+                        <select name="assignment" id="id_assignment" class="form-control">
+                          {% for assignment in form.assignment.field.queryset %}
+                              {% if not assignment.published %}
+                                  <option value="{{ assignment.aid }}" {% if form.assignment.value|stringformat:"s" == assignment.aid|stringformat:"s" %}selected{% endif %}>
+                                      {{ assignment }}
+                                  </option>
+                              {% endif %}
+                          {% endfor %}
+                      </select>
+                      <br>
+                        <label for="question_number" class="text-white">Question:</label>
+                        <input type="text" name="question" id="question_number" class="form-control" style="min-width: 500px;;" value="{{ form.question.value|default_if_none:'' }}"><br>
+                        <label for="option1" class="text-white">Option 1:</label>
+                        <input type="text" name="option1" id="option1" class="form-control" style="min-width: 500px;;" value="{{ form.option1.value|default_if_none:'' }}"><br>
+                        <label for="option2" class="text-white">Option 2:</label>
+                        <input type="text" name="option2" id="option2" class="form-control" style="min-width: 500px;;" value="{{ form.option2.value|default_if_none:'' }}"><br>
+                        <label for="option3" class="text-white">Option 3:</label>
+                        {% if form.option3.value %}
+                        <input type="text" name="option3" id="option3" class="form-control" style="min-width: 500px;" value="{{ form.option3.value|default_if_none:'' }}"><br>
+                        {% endif %}
+                        
+                        <label for="option4" class="text-white">Option 4:</label>
+                        {% if form.option4.value %}
+                        <input type="text" name="option4" id="option4" class="form-control" style="min-width: 500px;" value="{{ form.option4.value|default_if_none:'' }}"><br>
+                        {% endif %}
+                        
+                        <label class="text-white" for="answer">answer:</label>
+                        {{form.answer}}
+                        <br><br>
+                        <label class="text-white" for="level">level:</label>
+                        {{form.level}}
+                        <br><br>
+                        <label class="text-white" for="score">score:</label>
+                        {{form.score}}
+                        <br><br>
+                        <input class="btn btn-primary" type="submit" value="Update">
+                    </form>
+                    </div>
+            </main>

@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      Dynamic Quiz System 
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <script src="{% static 'bootstrap5/js/bootstrap.bundle.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery-3.7.1.min.js' %}" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 text-bg-dark mb-2" >
+        <div class="container">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+              <div class="col-md-3 mb-2 mb-md-0">
+                  <spam class="fs-4 text-white">Dynamic Quiz System (Lecturer)</spam>
+                </a>
+              </div>
+        
+              <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'assignment_list' %}" class="nav-link link-light px-1 text-warning me-2" >Assignment bank</a></li>
+                <li><a href="{% url 'question_list' %}" class="nav-link link-light px-1 text-warning me-2">Question bank</a></li>
+                <li><a href="{% url 'student_results' %}" class="nav-link link-light px-1 text-warning me-2" >Results</a></li>
+              </ul>
+        
+              <div class="col-md-3 text-end">
+                <a href="{% url 'logout' %}" class="btn btn-outline-warning me-2">logout</a>
+              </div>
+            </div>
+            </header>
+            <main class="container bg-black p-3 rounded" >
+            <div class="card text-center">
+              <div class="card-header">
+                Assignment List
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered border-dark">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>assignment</th>
+                      <th>mechanism</th>
+                      <th>Total Questions</th>
+                      <th>action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for assignment in assignments %}
+                    <tr>
+                        <td>{{ assignment.aid }}</td>
+                        <td>{{ assignment.assignment_name }}</td>
+                        <td>{% if assignment.mechanism_type == 0 %}random{% elif assignment.mechanism_type == 1 %}fixed{% else %}dynamic{% endif %}</td>
+                        <td>{{ assignment.total_questions }}</td>
+                        <td class="table-active">
+                          {% if not assignment.published %}
+                          <a href="{% url 'assignment_update' assignment.aid %}" class="btn btn-primary">Edit</a>
+                          <a href="{% url 'publish_assignment' assignment.aid %}" class="btn btn-success">Publish</a>
+                          <a class="btn btn-danger" href="{% url 'assignment_delete' assignment.aid  %}">Delete</a>  
+                          {% endif %}                            
+                          </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+        
+              </div>
+              <div class="card-footer text-body-secondary">
+                <a class="btn btn-primary" type="submit" href="{% url 'assignment_create' %}">Add New Assignment</a>
+              </div>
+            </div>
+            </main>
+            
+            
