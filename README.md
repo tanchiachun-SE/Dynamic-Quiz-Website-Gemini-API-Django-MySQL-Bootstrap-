@@ -10,7 +10,7 @@ Users can sign up, log in, and take quizzes; their progress and results are trac
 
 ## 📺 Demo Video
  
-[![Watch the Demo](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=for-the-badge&logo=youtube)]([YOUR_YOUTUBE_VIDEO_LINK_HERE](https://youtu.be/zOKgU5BLRYs))
+[![Watch the Demo](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=for-the-badge&logo=youtube)](https://youtu.be/zOKgU5BLRYs)
  
 > **Click the badge above to watch a complete walkthrough of the Dynamic Quiz Website!**
  
