@@ -1,6 +1,6 @@
 🎯 Dynamic Quiz Website
 
-An AI-powered quiz generation platform built with Django, Gemini API, MySQL, and Bootstrap
+An AI-powered quiz generation question platform with Django, Gemini API, MySQL, and Bootstrap
 
 > This project uses the Django web framework to develop and implement a dynamic quiz system. 
 A versatile platform for making, administering, and taking quizzes is offered by the system. 
